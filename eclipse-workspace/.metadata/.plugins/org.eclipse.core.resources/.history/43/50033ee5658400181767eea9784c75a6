@@ -1,0 +1,96 @@
+package POM;
+
+import java.io.File;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.PageFactory;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+import jxl.Cell;
+import jxl.Sheet;
+import jxl.Workbook;
+import pom_practise.Login;
+import scripts.resources.ExcelUtils;
+
+public class TestAuthentication {
+	
+	/*@DataProvider(name = "DP1")
+    public Object[][] createData1() {
+        Object[][] retObjArr=getTableArray("C:\\\\Users\\\\swapnil\\\\eclipse-workspace\\\\WebDriver\\\\UKTD\\\\resources\\\\UKTD Login Credentials.xlsx",
+                "DataPool", "loginTestdata1");
+        return(retObjArr);
+    }*/
+	
+	
+	@Test//(dataProvider = "DP1")
+	public void verifyAuthentication() throws Exception
+	{
+
+		System.setProperty("webdriver.chrome.driver","C:\\Users\\swapnil\\eclipse-workspace\\WebDriver\\test\\scripts\\resources\\chromedriver.exe");
+		WebDriver driver=new ChromeDriver();
+		
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
+		driver.navigate().to("http://88.208.208.58:1033/public/app/#");
+	
+		driver.manage().window().maximize();
+		
+		LoginToSystem TestLogin = PageFactory.initElements(driver,LoginToSystem.class);
+		
+
+	//	String Passw = null;
+//		String mail = null;
+		TestLogin.authentication("swapnilbhaskar@benchmarkitsolutions.com", "12345678");
+		
+		
+		/*ExcelUtils EU = new ExcelUtils();
+		EU.setExcelFile("C:\\Users\\swapnil\\eclipse-workspace\\WebDriver\\UKTD\\resources\\UKTD Login Credentials.xlsx", "Datapool");
+		driver.manage().window().maximize();
+		LoginToSystem LS = new LoginToSystem(driver);
+		LS.authentication(ExcelUtils.getCellData(3, 2), ExcelUtils.getCellData(3,2));*/
+}
+/*
+@AfterTest
+public String[][] getTableArray(String xlFilePath, String sheetName, String tableName){
+    String[][] tabArray=null;
+    try{
+        Workbook workbook = Workbook.getWorkbook(new File(xlFilePath));
+        Sheet sheet = workbook.getSheet(sheetName);
+        Cell tableStart=sheet.findCell(tableName);
+        
+        int startRow,startCol, endRow, endCol,ci,cj;
+        
+        startRow=tableStart.getRow();//2
+        startCol=tableStart.getColumn();//1
+
+        Cell tableEnd= sheet.findCell(tableName, startCol+1,startRow+1, 100, 64000,  false);                
+
+        endRow=tableEnd.getRow();//6
+        endCol=tableEnd.getColumn();//6
+        
+        System.out.println("startRow="+startRow+", endRow="+endRow+", " +
+                "startCol="+startCol+", endCol="+endCol);
+        tabArray=new String[endRow-startRow-1][endCol-startCol-1];
+        ci=0; //array row
+
+        for (int i=startRow+1;i<endRow;i++,ci++){//i represents xls row
+            cj=0;//array column
+            for (int j=startCol+1;j<endCol;j++,cj++){//j represents xls column
+                tabArray[ci][cj]=sheet.getCell(j,i).getContents();
+            }
+        }
+    }
+    catch (Exception e)    {
+        System.out.println("Please check if file path, sheet name and tag name are correct");
+        
+    }
+
+    return(tabArray);
+}
+*/
+
+}

@@ -1,0 +1,19 @@
+package scripts.resources;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class Demo {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+WebDriver driver;
+
+System.setProperty("webdriver.gecko.driver", "C:\\Users\\swapnil\\eclipse-workspace\\WebDriver\\test\\scripts\\resources\\geckodriver64bit.exe");
+driver = new FirefoxDriver();
+driver.get("http://www.wikipedia.org");
+driver.findElement(By.id("id=\"js-link-box-en")).click();
+	}
+
+}
